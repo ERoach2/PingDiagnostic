@@ -96,7 +96,16 @@ namespace PingDiagnostic.Model
         {
             Number = pNumber;
             IPAddress = pResult.Address.ToString();
-            Name = Dns.GetHostEntry(pResult.Address.ToString()).HostName;
+
+            try
+            {
+                Name = Dns.GetHostEntry(pResult.Address.ToString()).HostName;
+            }
+            catch
+            {
+                Name = "UNKNOWN NAME - DNS ERRO";
+            }
+            
             AvgTime = pResult.TimeMs;
             MinTime = pResult.TimeMs;
             MaxTime = pResult.TimeMs;
